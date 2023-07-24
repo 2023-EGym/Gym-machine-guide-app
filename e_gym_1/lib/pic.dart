@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-// import 'dart:js_interop';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +7,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:image/image.dart' as img;
 
+
+//  0. chest_press_machine
+//  1. elliptical_machine
+//  2. hip_abduction_machine
+//  3. lat_pulldown_machine
+//  4. leg_press_machine
+//  5. recumbent_bike
+//  6. running_machine
 
 void main() {
   runApp(PicPage());
@@ -94,7 +101,7 @@ class _PicPageState extends State<PicPage> {
 
     modelrun() async{
 
-      final interpreter = await Interpreter.fromAsset('assets/best_model2.tflite');
+      final interpreter = await Interpreter.fromAsset('assets/add_data_model2_20ep.tflite');
 
         if(_image != null){
 
