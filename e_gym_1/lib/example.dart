@@ -39,7 +39,7 @@ class ExamplePage extends StatelessWidget {
           child: Container(
             color: Color(0xff1E1651),
             child: SizedBox(
-              height: 60.0,
+              height: 80.0,
               child: TextButton(
                   onPressed: (){
                     Navigator.pushNamed(context, '/d');
@@ -47,6 +47,7 @@ class ExamplePage extends StatelessWidget {
                   child: Text("네 확인했어요!",
                   style: TextStyle(
                     color: Colors.white,
+                    fontSize: 25
                   ),
                   ),
               ),

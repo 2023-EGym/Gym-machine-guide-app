@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-// import 'dart:js_interop';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +7,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:image/image.dart' as img;
 
+
+//  0. chest_press_machine
+//  1. elliptical_machine
+//  2. hip_abduction_machine
+//  3. lat_pulldown_machine
+//  4. leg_press_machine
+//  5. recumbent_bike
+//  6. running_machine
 
 void main() {
   runApp(PicPage());
@@ -19,23 +26,11 @@ class PicPage extends StatefulWidget {
   State<PicPage> createState() => _PicPageState();
 }
 
-// class _PicPageState extends State<PicPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(),
-
-//     );
-//   }
-// }
-
 
 class _PicPageState extends State<PicPage> {
 
 
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
   File? _image;
   int result_index = 0;
 
@@ -94,7 +89,7 @@ class _PicPageState extends State<PicPage> {
 
     modelrun() async{
 
-      final interpreter = await Interpreter.fromAsset('assets/best_model2.tflite');
+      final interpreter = await Interpreter.fromAsset('assets/add_more_model2_ep7.tflite');
 
         if(_image != null){
 
@@ -113,22 +108,30 @@ class _PicPageState extends State<PicPage> {
             print(model_result);
             print(maxIndex);
 
-if(result_index == 0){
+                if(result_index == 0){
                     Navigator.pushNamed(context, '/chest');
 
                   }else if(result_index == 1){
 
-                    Navigator.pushNamed(context, '/hip');
+                    Navigator.pushNamed(context, '/elliptical');
 
                   }else if(result_index == 2){
 
-                    Navigator.pushNamed(context, '/latpull');
+                    Navigator.pushNamed(context, '/hip');
 
                   }else if(result_index == 3){
 
-                    Navigator.pushNamed(context, '/legpress');
+                    Navigator.pushNamed(context, '/latpull');
 
                   }else if(result_index == 4){
+
+                    Navigator.pushNamed(context, '/legpress');
+
+                  }else if(result_index == 5){
+
+                    Navigator.pushNamed(context, '/bike');
+
+                  }else if(result_index == 6){
 
                     Navigator.pushNamed(context, '/running');
 
@@ -137,12 +140,8 @@ if(result_index == 0){
 
                   }
         }{
-
-
         }
-
   }
-
 
 
     Widget showImage() {
@@ -182,7 +181,7 @@ if(result_index == 0){
             color: Color(0xff1E1651),
             iconSize: 100.0,
             onPressed: () {
-                                  getImage(ImageSource.camera);
+                getImage(ImageSource.camera);
 
             },
           ),
@@ -194,7 +193,7 @@ if(result_index == 0){
             color: Color(0xff1E1651),
             iconSize: 100.0,
             onPressed: () {
-                                  getImage(ImageSource.gallery);
+                getImage(ImageSource.gallery);
 
             },
           ),
@@ -208,7 +207,7 @@ if(result_index == 0){
           child: Container(
             color: Color(0xff1E1651),
             child: SizedBox(
-              height: 60.0,
+              height: 80.0,
               child: TextButton(
                 onPressed: (){
                   modelrun();
@@ -218,6 +217,7 @@ if(result_index == 0){
                 child: Text("확인",
                   style: TextStyle(
                     color: Colors.white,
+                    fontSize: 25
                   ),
                 ),
               ),
@@ -227,12 +227,4 @@ if(result_index == 0){
       ),
     );
   }
-
-
 }
-
-
-
-
-
-
