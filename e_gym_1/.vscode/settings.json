@@ -1,3 +1,4 @@
 {
-  "cmake.configureOnOpen": true
+  "cmake.configureOnOpen": true,
+  "cmake.sourceDirectory": "C:/flutter_project/Gym-machine-guide-app/e_gym_1/linux"
 }
