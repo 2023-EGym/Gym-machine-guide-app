@@ -27,4 +27,4 @@
 
 ## Release
 
-[PlayStore E-Gym](https://play.google.com/store/apps/details?id=com.newbie.e_gym)
+[Google Play E-Gym](https://play.google.com/store/apps/details?id=com.newbie.e_gym)
