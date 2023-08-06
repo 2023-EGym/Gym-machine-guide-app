@@ -1,52 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'package:flutter/services.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+
 void main() {
   runApp(BikePage());
 }
 
 class BikePage extends StatelessWidget {
-  const BikePage ({super.key});
+  const BikePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MaterialApp(
-                    debugShowCheckedModeBanner: false,
-
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
-
           child: Column(
             children: [
-              SizedBox(height: 100,),
-              Image(image: AssetImage('assets/bike.jpg'
-
+              SizedBox(
+                height: 100,
               ),
-              width: 400,),
-              SizedBox(height: 50,),
-
-              Text("실내 자전거",style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.black,
-                  ),),
-                              SizedBox(height: 40,),
-
+              Image(
+                image: AssetImage('assets/bike.jpg'),
+                width: 400,
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Text(
+                "실내 자전거",
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.black,
+                ),
+              ),
+              SizedBox(
+                height: 40,
+              ),
               Container(
                 width: 200,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: _launchURL,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MyWebView(),
+                      ),
+                    );
+                  },
                   child: Text('사용법 영상 보기 !'),
                   style: ElevatedButton.styleFrom(
-
-
-                    primary: Color(0xff1E1651),
-                    textStyle: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20)
-                  ),
+                      primary: Color(0xff1E1651),
+                      textStyle: TextStyle(color: Colors.white, fontSize: 20)),
                 ),
               ),
             ],
@@ -58,15 +66,16 @@ class BikePage extends StatelessWidget {
             child: SizedBox(
               height: 80.0,
               child: TextButton(
-                  onPressed: (){
-                    Navigator.pushNamed(context, '/d');
-                  },
-                  child: Text("다시촬영하기",
+                onPressed: () {
+                  Navigator.pushNamed(context, '/d');
+                },
+                child: Text(
+                  "다시촬영하기",
                   style: TextStyle(
                     fontSize: 25,
                     color: Colors.white,
                   ),
-                  ),
+                ),
               ),
             ),
           ),
@@ -74,15 +83,34 @@ class BikePage extends StatelessWidget {
       ),
     );
   }
-
 }
 
 
-_launchURL() async {
-  const url = 'https://www.youtube.com/watch?v=sqC5a78NfQw';
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
+
+class MyWebView extends StatefulWidget {
+  @override
+  State<MyWebView> createState() => _MyWebViewState();
+}
+
+class _MyWebViewState extends State<MyWebView> {
+  WebViewController? _webViewController;
+
+  void initState() {
+    _webViewController = WebViewController()
+      ..loadRequest(Uri.parse('https://www.youtube.com/watch?v=sqC5a78NfQw'))
+      ..setJavaScriptMode(JavaScriptMode.unrestricted);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+                backgroundColor: Color(0xff1E1651),
+
+        title: Text('실내 자전거'),
+      ),
+      body: WebViewWidget(controller: _webViewController!),
+    );
   }
 }
