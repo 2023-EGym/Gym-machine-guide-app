@@ -144,80 +144,116 @@ class _PicPageState extends State<PicPage> {
   }
 
 
-    Widget showImage() {
-    return Container(
-        color: const Color(0xffd0cece),
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.width,
-        child: Center(
-            child: _image == null
-                ? Text('No image selected.')
-                : Image.file(File(_image!.path))));
+  Widget showImage() {
+    return Positioned(
+      top: 70,
+      left: 25,
+      child: Container(
+          color: Color(0xFFFFFCFC),
+          width: 300,
+          height: 300,
+          child: Center(
+              child: _image == null
+                  ? Text('No image selected.')
+                  : Image.file(File(_image!.path)))),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MaterialApp(
-                    debugShowCheckedModeBanner: false,
-
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Color(0xFFF3F3F3),
+        appBar: AppBar(
+          leading: Padding(
+            padding: const EdgeInsets.fromLTRB(10.0, 0, 0, 0),
+            child: Image.asset(
+              'assets/titleLogo.png',
+              width: 60,
+              height: 60,
+            ),
+          ),
+          backgroundColor: Colors.white,
+          toolbarHeight: 50,
+        ),
         body: Center(
           child: Column(
             children: [
               SizedBox(
-                height: 80,
+                height: 30,
               ),
-              Text('기구를 촬영해주세요.'),
-              showImage()
-              ,SizedBox(
-                height: 60,
+              Stack(children: <Widget>[
+                Container(
+                  width: 350,
+                  child: Image.asset('assets/machine_back.png',
+                      fit: BoxFit.contain),
+                ),
+                showImage()
+              ]),
+              SizedBox(
+                height: 15,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-            icon: Icon(Icons.camera_alt),
-            color: Color(0xff1E1651),
-            iconSize: 100.0,
-            onPressed: () {
-                getImage(ImageSource.camera);
-
-            },
-          ),
-
+              Text(
+                "사진을 선택해주세요 !",
+                style: TextStyle(fontSize: 18),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                IconButton(
+                  icon: Icon(Icons.camera_alt),
+                  color: Color(0xff583DCE),
+                  iconSize: 100.0,
+                  onPressed: () {
+                    getImage(ImageSource.camera);
+                  },
+                ),
                 SizedBox(
                   width: 60,
-                ),IconButton(
-            icon: Icon(Icons.photo),
-            color: Color(0xff1E1651),
-            iconSize: 100.0,
-            onPressed: () {
-                getImage(ImageSource.gallery);
-
-            },
-          ),
-
-
+                ),
+                IconButton(
+                  icon: Icon(Icons.photo),
+                  color: Color(0xff583DCE),
+                  iconSize: 100.0,
+                  onPressed: () {
+                    getImage(ImageSource.gallery);
+                  },
+                ),
               ]),
             ],
           ),
         ),
         bottomNavigationBar: BottomAppBar(
+          shape: CircularNotchedRectangle(), // 테두리 없음
+          elevation: 0, // 그림자 없음
+
           child: Container(
-            color: Color(0xff1E1651),
-            child: SizedBox(
-              height: 80.0,
-              child: TextButton(
-                onPressed: (){
-                  modelrun();
+            color: Color(0xFFF3F3F3),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20.0, 8, 20, 15),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color(0xffE0E5F5),
+                  borderRadius: BorderRadius.circular(20.0), // 테두리를 둥글게 만듦
+                ),
 
+                // color: Color(0xff1E1651),
 
-                },
-                child: Text("확인",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25
+                child: SizedBox(
+                  height: 50.0,
+                  child: TextButton(
+                    onPressed: () {
+                      modelrun();
+                    },
+                    child: Text(
+                      "확인",
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
                 ),
               ),
