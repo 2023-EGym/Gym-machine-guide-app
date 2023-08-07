@@ -16,19 +16,39 @@ class ChestInfoPage extends StatelessWidget {
       debugShowCheckedModeBanner: false, // 디버그 배너 숨기기
 
       home: Scaffold(
+        appBar: AppBar(
+          leading: Padding(
+            padding: const EdgeInsets.fromLTRB(10.0, 0, 0, 0),
+            child: Image.asset(
+              'assets/titleLogo.png',
+              width: 60,
+              height: 60,
+            ),
+          ),
+          backgroundColor: Colors.white,
+          toolbarHeight: 50,
+        ),
         body: Center(
           child: Column(
             children: [
               SizedBox(
-                height: 100,
+                height: 30,
               ),
-              Image(
-                image: AssetImage('assets/chestpress.png'),
-                width: 400,
-              ),
-              SizedBox(
-                height: 50,
-              ),
+              Stack(children: <Widget>[
+                Container(
+                  width: 350,
+                  child: Image.asset('assets/machine_back.png',
+                      fit: BoxFit.contain),
+                ),
+                Positioned(
+                  top: 40,
+                  left: 48,
+                  child: Image(
+                    image: AssetImage('assets/chestpress.png'),
+                    width: 250,
+                  ),
+                ),
+              ]),
               Text(
                 "체스트 프레스 머신",
                 style: TextStyle(
@@ -37,55 +57,63 @@ class ChestInfoPage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 40,
+                height: 10,
+              ),
+              Text(
+                "이 기구가 맞나요 ?",
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black,
+                ),
+              ),
+              SizedBox(
+                height: 30,
               ),
               Container(
                 width: 200,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MyWebView(),
-                      ),
-                    );
-                  },
-                  child: Text('사용법 영상 보기 !'),
-                  style: ElevatedButton.styleFrom(
-                      primary: Color(0xff1E1651),
-                      textStyle: TextStyle(color: Colors.white, fontSize: 20)),
+                decoration: BoxDecoration(
+                  color: Color(0xffE0E5F5),
+                  borderRadius: BorderRadius.circular(15.0), // 테두리를 둥글게 만듦
                 ),
+                child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MyWebView(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      '네, 사용법 영상 볼래요.',
+                      style: TextStyle(color: Colors.black),
+                    )),
               ),
+              SizedBox(
+                height: 15,
+              ),
+              Container(
+                width: 200,
+                decoration: BoxDecoration(
+                  color: Color(0xffF5E3E0),
+                  borderRadius: BorderRadius.circular(15.0), // 테두리를 둥글게 만듦
+                ),
+                child: TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/d');
+                    },
+                    child: Text(
+                      '재촬영할게요.',
+                      style: TextStyle(color: Colors.black),
+                    )),
+              )
             ],
-          ),
-        ),
-        bottomNavigationBar: BottomAppBar(
-          child: Container(
-            color: Color(0xff1E1651),
-            child: SizedBox(
-              height: 80.0,
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/d');
-                },
-                child: Text(
-                  "다시촬영하기",
-                  style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
           ),
         ),
       ),
     );
   }
 }
-
-
 
 class MyWebView extends StatefulWidget {
   @override
@@ -106,8 +134,10 @@ class _MyWebViewState extends State<MyWebView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
-        backgroundColor: Color(0xff1E1651),
+        iconTheme: IconThemeData(
+          color: Color(0xff583DCE), //색변경
+        ),
+        backgroundColor: Colors.white,
         title: Text('체스트 프레스 머신'),
       ),
       body: WebViewWidget(controller: _webViewController!),
