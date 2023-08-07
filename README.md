@@ -23,7 +23,7 @@
 - Flutter
 
 ## 앱 화면
-![Untitled](https://github.com/2023-EGym/Gym-machine-guide-app/assets/108528803/0937a7d5-9ca9-4487-a484-132335732336)
+![2023-08-06 22 05 03](https://github.com/2023-EGym/Gym-machine-guide-app/assets/108528803/2a1a0ec7-66b0-4280-8d43-fa5cc88be4f1)
 
 ## Release
 
