@@ -37,7 +37,7 @@ class ExamplePage extends StatelessWidget {
         ),),
         bottomNavigationBar: BottomAppBar(
           child: Container(
-            color: Color(0xff1E1651),
+            color: Color(0xff583DCE),
             child: SizedBox(
               height: 80.0,
               child: TextButton(
@@ -46,7 +46,7 @@ class ExamplePage extends StatelessWidget {
                   },
                   child: Text("네 확인했어요!",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Color(0xffFFFFFF),
                     fontSize: 25
                   ),
                   ),
