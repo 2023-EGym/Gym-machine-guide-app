@@ -28,12 +28,9 @@ class _MainLoadingPageState extends State<MainLoadingPage> {
       home: Scaffold(
         backgroundColor: Color(0xff583DCE),
         body: Center(
-          child: Text('E-GYM',
-          style: TextStyle(
-            color: Color(0xffFFFFFF),
-            fontSize: 80.0,
-            fontWeight: FontWeight.bold,
-          ),
+          child: Image.asset('assets/mainloadinglogo.png',
+          width: 300,
+          height: 300,
           ),
         ),
       ),
