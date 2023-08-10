@@ -16,7 +16,7 @@ class _LoadingPageState extends State<LoadingPage> {
   void initState(){
     super.initState();
     Future.delayed(Duration(seconds: 1), (){
-      Navigator.pushNamed(context, '/g'); //조건문 사용하여 fail~machine5 중 한 페이지로 연결시키기
+      Navigator.pushNamed(context, '/b'); //조건문 사용하여 fail~machine5 중 한 페이지로 연결시키기
     });
   }
   @override
