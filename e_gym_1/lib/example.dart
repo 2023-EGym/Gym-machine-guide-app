@@ -12,18 +12,30 @@ class ExamplePage extends StatelessWidget {
   Widget build(BuildContext context) {
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MaterialApp(
-                    debugShowCheckedModeBanner: false,
-
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
+        appBar: AppBar(
+          leading: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+            child: Image.asset(
+              'assets/titleLogo.png',
+              width: 60,
+              height: 60,
+            ),
+          ),
+          backgroundColor: Color(0xffFFFFFF),
+          toolbarHeight: 50,
+        ),
         body: Center(child:
         Column(
           children: [
             SizedBox(
-              height: 90,
+              height: 60,
             ),
             Text('촬영 예시',style: TextStyle(
-              fontSize: 30
-            ),),
+              fontSize: 30,
+            ),
+            ),
             SizedBox(
               height: 50,
             ),
@@ -36,20 +48,35 @@ class ExamplePage extends StatelessWidget {
           ],
         ),),
         bottomNavigationBar: BottomAppBar(
+          shape: CircularNotchedRectangle(), // 테두리 없음
+          elevation: 0, // 그림자 없음
+
           child: Container(
-            color: Color(0xff583DCE),
-            child: SizedBox(
-              height: 80.0,
-              child: TextButton(
-                  onPressed: (){
-                    Navigator.pushNamed(context, '/d');
-                  },
-                  child: Text("네 확인했어요!",
-                  style: TextStyle(
-                    color: Color(0xffFFFFFF),
-                    fontSize: 25
+            color: Color(0xFFF3F3F3),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20.0, 8, 20, 15),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color(0xffE0E5F5),
+                  borderRadius: BorderRadius.circular(20.0), // 테두리를 둥글게 만듦
+                ),
+
+                // color: Color(0xff1E1651),
+
+                child: SizedBox(
+                  height: 50.0,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/d');
+                    },
+                    child: Text(
+                      "확인",
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
-                  ),
+                ),
               ),
             ),
           ),
