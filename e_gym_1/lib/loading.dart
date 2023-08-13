@@ -7,6 +7,7 @@ void main() {
 class LoadingPage extends StatefulWidget {
   const LoadingPage({super.key});
 
+
   @override
   State<LoadingPage> createState() => _LoadingPageState();
 }

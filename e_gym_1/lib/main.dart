@@ -1,12 +1,12 @@
 import 'package:e_gym_1/chestinfo.dart';
-import 'package:e_gym_1/elliptical.dart';
+import 'package:e_gym_1/crunch.dart';
 import 'package:e_gym_1/hipabduction.dart';
+import 'package:e_gym_1/inclinebench.dart';
 import 'package:e_gym_1/latpulldown.dart';
 import 'package:e_gym_1/legpress.dart';
-import 'package:e_gym_1/recumbent.dart';
-import 'package:e_gym_1/running.dart';
+import 'package:e_gym_1/peckdeckfly.dart';
+import 'package:e_gym_1/seatedrow.dart';
 import 'package:flutter/material.dart';
-
 import 'package:e_gym_1/mainloading.dart';
 import 'package:e_gym_1/start.dart';
 import 'package:e_gym_1/example.dart';
@@ -32,20 +32,23 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
                           debugShowCheckedModeBanner: false,
 
-      initialRoute: '/a',
+      initialRoute: '/crunch',
       routes: {
         '/a' : (context) => MainLoadingPage(),
         '/b' : (context) => StartPage(),
         '/c' : (context) => ExamplePage(),
         '/d' : (context) => PicPage(),
         '/f' : (context) => LoadingPage(),
+        // 운동
         '/chest' : (context) => ChestInfoPage(),
+        '/crunch' : (context) => Crunch(),
         '/hip' : (context) => HipabductionPage(),
+        '/incline' : (context) => InclineBench(),
         '/latpull' : (context) => LatpulldownPage(),
         '/legpress' : (context) => LegpressPage(),
-        '/running' : (context) => RunningPage(),
-        '/elliptical' : (context) => EllipticalPage(),
-        '/bike' : (context) => BikePage(),
+        '/peckdeck' : (context) => PeckDeckFly(),
+        '/seated' : (context) => SeatedRow(),
+
 
         '/g' : (context) => FailPage(),
       },
