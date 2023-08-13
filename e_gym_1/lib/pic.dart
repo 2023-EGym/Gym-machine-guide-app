@@ -7,18 +7,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:image/image.dart' as img;
 
-
-//  0. chest_press_machine
-//  1. elliptical_machine
-//  2. hip_abduction_machine
-//  3. lat_pulldown_machine
-//  4. leg_press_machine
-//  5. recumbent_bike
-//  6. running_machine
-
 void main() {
   runApp(PicPage());
 }
+
 class PicPage extends StatefulWidget {
   const PicPage({super.key});
 
@@ -26,16 +18,12 @@ class PicPage extends StatefulWidget {
   State<PicPage> createState() => _PicPageState();
 }
 
-
 class _PicPageState extends State<PicPage> {
-
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
   File? _image;
   int result_index = 0;
 
-    List<List<List<List<double>>>> convertTo3DArray(img.Image image) {
-
+  List<List<List<List<double>>>> convertTo3DArray(img.Image image) {
     int width = image.width;
     int height = image.height;
 
@@ -59,90 +47,84 @@ class _PicPageState extends State<PicPage> {
       }
     }
 
-    List<List<List<List<double>>>> fourarray =[];
+    List<List<List<List<double>>>> fourarray = [];
     fourarray.add(imageArray);
 
     return fourarray;
   }
 
-    final picker = ImagePicker();
-
+  final picker = ImagePicker();
 
   Future getImage(ImageSource imageSource) async {
     final image = await picker.pickImage(source: imageSource);
 
-
     setState(() {
-      if(image != null){
-            _image = File(image!.path); // 가져온 이미지를 _image에 저장
-
-      }else{
-
+      if (image != null) {
+        _image = File(image!.path); // 가져온 이미지를 _image에 저장
+      } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('사진을 선택해주세요 !'),
           duration: Duration(seconds: 3),
         ));
       }
-
     });
   }
 
-    modelrun() async{
+  modelrun() async {
+    final interpreter =
+        await Interpreter.fromAsset('assets/model/best_student_model_8.tflite');
 
-      final interpreter = await Interpreter.fromAsset('assets/add_more_model2_ep7.tflite');
+    if (_image != null) {
+      Uint8List imageBytes = File(_image!.path).readAsBytesSync();
+      img.Image resizedImage = img.decodeImage(imageBytes)!;
+      img.Image image_d = img.copyResize(resizedImage, width: 224, height: 224);
+      List<List<List<List<double>>>> imageArray = convertTo3DArray(image_d);
 
-        if(_image != null){
+      List<List<double>> output = [
+        [0, 0, 0, 0, 0, 0, 0, 0]
+      ];
 
-            Uint8List imageBytes = File(_image!.path).readAsBytesSync();
-            img.Image resizedImage = img.decodeImage(imageBytes)!;
-            img.Image image_d = img.copyResize(resizedImage, width: 224, height: 224);
-            List<List<List<List<double>>>> imageArray = convertTo3DArray(image_d);
+      interpreter.run(imageArray, output);
 
-            List<List<double>> output = [[0,0,0,0,0,0,0]];
+      List<double> model_result = output[0];
+      int maxIndex =
+          model_result.indexOf(model_result.reduce((a, b) => a > b ? a : b));
+      result_index = maxIndex;
+      print(model_result);
+      print(maxIndex);
 
-            interpreter.run(imageArray,output);
+// 0: chest press machine
+// 1: crunch machine
+// 2: hip abduction machine
+// 3: incline bench press machine
+// 4: lat pull down machine
+// 5: leg press machine
+// 6: peckdeck fly machine
+// 7: seated row machine
 
-            List<double> model_result = output[0];
-            int maxIndex = model_result.indexOf(model_result.reduce((a, b) => a > b ? a : b));
-            result_index = maxIndex;
-            print(model_result);
-            print(maxIndex);
+      if (result_index == 0) {
+        Navigator.pushNamed(context, '/chest');
+      } else if (result_index == 1) {
+        Navigator.pushNamed(context, '/crunch');
+      } else if (result_index == 2) {
+        Navigator.pushNamed(context, '/hip');
+      } else if (result_index == 3) {
+        Navigator.pushNamed(context, '/incline');
+      } else if (result_index == 4) {
+        Navigator.pushNamed(context, '/latpull');
+      } else if (result_index == 5) {
+        Navigator.pushNamed(context, '/legpress');
+      } else if (result_index == 6) {
+        Navigator.pushNamed(context, '/peckdeck');
+      } else if(result_index == 7) {
+        Navigator.pushNamed(context, '/seated');
+      }else{
+        Navigator.pushNamed(context, '/g');
 
-                if(result_index == 0){
-                    Navigator.pushNamed(context, '/chest');
+      }
+    }
 
-                  }else if(result_index == 1){
-
-                    Navigator.pushNamed(context, '/elliptical');
-
-                  }else if(result_index == 2){
-
-                    Navigator.pushNamed(context, '/hip');
-
-                  }else if(result_index == 3){
-
-                    Navigator.pushNamed(context, '/latpull');
-
-                  }else if(result_index == 4){
-
-                    Navigator.pushNamed(context, '/legpress');
-
-                  }else if(result_index == 5){
-
-                    Navigator.pushNamed(context, '/bike');
-
-                  }else if(result_index == 6){
-
-                    Navigator.pushNamed(context, '/running');
-
-                  }else{
-                  Navigator.pushNamed(context, '/f');
-
-                  }
-        }{
-        }
   }
-
 
   Widget showImage() {
     return Positioned(
@@ -161,7 +143,7 @@ class _PicPageState extends State<PicPage> {
 
   @override
   Widget build(BuildContext context) {
-      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
